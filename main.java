@@ -10,7 +10,6 @@ public class Main {
 			System.out.println(arr[i]);
 		}
 		System.out.println("----------------");
-
 	}
 	public static void getBook() {
 		Scanner sc=new Scanner(System.in);
@@ -44,7 +43,7 @@ public class Main {
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter the book name : ");
 		String book=sc.nextLine();
-		System.out.println("Enetr the ID : ");
+		System.out.println("Enter the ID : ");
 		int id=sc.nextInt();
 		if(arr[id-1]=="") {
 			arr[id-1]=book;
@@ -53,14 +52,11 @@ public class Main {
 			System.out.println("--------------------------------");
 		}
 		else {
-			System.out.println("--------------------------------");
+			System.out.println("-----------------------------------------");
 			System.out.println("Already a book is available in that ID");
-			System.out.println("--------------------------------");
+			System.out.println("-----------------------------------------");
 		}
-		
 	}
-	
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
@@ -72,6 +68,7 @@ public class Main {
 			System.out.println("Enter 1 to check the list of books"); 
 			System.out.println("Enter 2 to get the book");
 			System.out.println("Enter 3 to Return the book");
+			System.out.println("Enter 4 to Exit");
 			int input=sc.nextInt();
 			
 			switch(input) {
@@ -84,9 +81,12 @@ public class Main {
 			case 3:
 				returnBook();
 				break;
+			case 4:
+				System.out.println("Thank you " + name +" !");
+			    System.exit(0);
+			    default:
+			    	System.out.println("Enter a Valid number");
 			}
 		}
-
 	}
-
 }
