@@ -34,7 +34,7 @@ public class Main {
 		else {
 			arr[input-1]="";
 			System.out.println("--------------------------------");
-			System.out.println("Book successfully purchased");
+			System.out.println("Book successfully taken");
 			System.out.println("--------------------------------");
 			
 		}
@@ -85,7 +85,9 @@ public class Main {
 				System.out.println("Thank you " + name +" !");
 			    System.exit(0);
 			    default:
+			    	System.out.println("---------------------");
 			    	System.out.println("Enter a Valid number");
+			    	System.out.println("---------------------");
 			}
 		}
 	}
