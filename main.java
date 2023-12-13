@@ -1,96 +1,164 @@
-package FR8;
 import java.util.Scanner;
-public class Main {
-	static String arr[] = new String[] { "Java", "Python", "JavaScript", "HTML and CSS", "Advanced Java", "PHP",
-			"Kotlin", "SQL", "Ruby", "Flutter" };
 
-	public static void booksList() {
-		System.out.println("----------------");
-		for (int i = 0; i < arr.length; i++) {
-			System.out.println((i + 1) + "." + arr[i]);
-		}
-		System.out.println("----------------");
+public class LibraryManagement {
+	static String arr[] = new String[100];
+	static int ptr = 0;
+	static String takenBooks[] = new String[100];
+	static int ptr2 = 0;
+	static String name = "";
+
+	public static void addBook(String book) {
+		arr[ptr] = book;
+		ptr++;
+		System.out.println("---------------------------------");
+		System.out.println("Book has been successfully added");
+		System.out.println("---------------------------------");
 	}
 
-	public static void getBook() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("-------------------------------");
-		System.out.println("Enter 1 to get Java");
-		System.out.println("Enter 2 to get Python");
-		System.out.println("Enter 3 to get JavaScript");
-		System.out.println("Enter 4 to get HTML and CSS");
-		System.out.println("Enter 5 to get Advanced Java");
-		System.out.println("Enter 6 to get PHP");
-		System.out.println("Enter 7 to get Kotlin");
-		System.out.println("Enter 8 to get SQL");
-		System.out.println("Enter 9 to get Ruby");
-		System.out.println("Enter 10 to get Flutter");
-		System.out.println("-------------------------------");
-		int input = sc.nextInt();
-		if (arr[input - 1] == "") {
-			System.out.println("----------------------------------------------");
-			System.out.println("Sorry ,The book is currentlly not available");
-			System.out.println("----------------------------------------------");
+	public static void listBooks() {
+		if (ptr == 0) {
+			System.out.println("--------------------------------");
+			System.out.println("There are no books to display!!!");
+			System.out.println("--------------------------------");
 		} else {
-			arr[input - 1] = "";
-			System.out.println("--------------------------------");
-			System.out.println("Book successfully taken");
-			System.out.println("--------------------------------");
+			System.out.println("--------------------");
+			for (int i = 0; i < ptr; i++) {
+				if (arr[i].equals("")) {
+					continue;
+				}
+				System.out.println(arr[i]);
+			}
+			System.out.println("--------------------");
+		}
+	}
 
+	public static void takeBook() {
+		if (ptr == 0) {
+			System.out.println("------------------------------");
+			System.out.println("There are no books to take!!!");
+			System.out.println("------------------------------");
+		} else {
+			for (int i = 0; i < ptr; i++) {
+				if (arr[i].equals("")) {
+					continue;
+				}
+				System.out.println("Enter " + (i + 1) + " to take " + arr[i]);
+			}
+			Scanner sc = new Scanner(System.in);
+			int input = sc.nextInt();
+			if (arr[input - 1].equals("")) {
+				System.out.println("---------------------------------------------");
+				System.out.println("Sorry, The book is currently not available!!!");
+				System.out.println("---------------------------------------------");
+			} else {
+				takenBooks[ptr2] = arr[input - 1];
+				arr[input - 1] = "";
+				System.out.println("---------------------------------");
+				System.out.println("Book has been successfully taken");
+				System.out.println("---------------------------------");
+				ptr2++;
+			}
 		}
 	}
 
 	public static void returnBook() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the book name : ");
-		String book = sc.nextLine();
-		System.out.println("Enter the ID : ");
-		int id = sc.nextInt();
-		if (arr[id - 1] == "") {
-			arr[id - 1] = book;
-			System.out.println("--------------------------------");
-			System.out.println("Book successfully returned");
-			System.out.println("--------------------------------");
+		if (ptr2 == 0) {
+			System.out.println("-------------------------------");
+			System.out.println("There are no books to return!!!");
+			System.out.println("-------------------------------");
 		} else {
-			System.out.println("-----------------------------------------");
-			System.out.println("Already a book is available in that ID");
-			System.out.println("-----------------------------------------");
+			System.out.println("------------------------------------------------------------");
+			for (int i = 0; i < ptr2; i++) {
+				System.out.println("Enter " + (i + 1) + " to return " + takenBooks[i]);
+			}
+			System.out.println("------------------------------------------------------------");
+
+			Scanner sc = new Scanner(System.in);
+			int returnChoice = sc.nextInt();
+			if (returnChoice >= 1 && returnChoice <= ptr2) {
+				int index = returnChoice - 1;
+				arr[ptr] = takenBooks[index];
+				ptr++;
+				System.out.println("------------------------------------");
+				System.out.println("Book has been successfully returned");
+				System.out.println("------------------------------------");
+				for (int i = index; i < ptr2 - 1; i++) {
+					takenBooks[i] = takenBooks[i + 1];
+				}
+				takenBooks[ptr2 - 1] = "";
+				ptr2--;
+			} else {
+				System.out.println("---------------------------------");
+				System.out.println("Invalid choice. No book returned.");
+				System.out.println("---------------------------------");
+			}
 		}
 	}
 
+	public static void printRegister() {
+		System.out.println("------------------------------------");
+		System.out.println("Register as a student to continue!!!");
+		System.out.println("------------------------------------");
+	}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the name of the student : ");
-		String name = sc.nextLine();
-		System.out.println("Welcome " + name + " !");
-
 		while (true) {
-			System.out.println("-----------------------------------");
-			System.out.println("Enter 1 to check the list of books");
-			System.out.println("Enter 2 to get the book");
-			System.out.println("Enter 3 to Return the book");
-			System.out.println("Enter 4 to Exit");
-			System.out.println("-----------------------------------");
+			System.out.println("----------------------------------");
+			System.out.println("Enter 1 for Student Registration");
+			System.out.println("Enter 2 to Add book");
+			System.out.println("Enter 3 to view the list of books");
+			System.out.println("Enter 4 to take a book");
+			System.out.println("Enter 5 to return a book");
+			System.out.println("Enter 6 to Exit");
+			System.out.println("----------------------------------");
+			System.out.println("Enter your choice : ");
 			int input = sc.nextInt();
-
 			switch (input) {
 			case 1:
-				booksList();
+				System.out.println("Enter the name of the Student : ");
+                                sc.nextLine();
+				name = sc.nextLine();
+				System.out.println("Enter Student ID : ");
+				String id = sc.next();
+				System.out.println("Welcome " + name + " !");
 				break;
 			case 2:
-				getBook();
+				if (name.equals("")) {
+					printRegister();
+				} else {
+					System.out.println("Enter the name of the book : ");
+                                        sc.nextLine();
+					String book = sc.nextLine();
+					addBook(book);
+				}
 				break;
 			case 3:
-				returnBook();
+				if (name.equals("")) {
+					printRegister();
+				} else {
+					listBooks();
+				}
 				break;
 			case 4:
+				if (name.equals("")) {
+					printRegister();
+				} else {
+					takeBook();
+					break;
+				}
+			case 5:
+				if (name.equals("")) {
+					printRegister();
+				} else {
+					returnBook();
+				}
+				break;
+			case 6:
+				System.out.println("----------------------------------------");
 				System.out.println("Thank you " + name + " !");
+				System.out.println("----------------------------------------");
 				System.exit(0);
-			default:
-				System.out.println("---------------------");
-				System.out.println("Enter a Valid number");
-				System.out.println("---------------------");
 			}
 		}
 	}
